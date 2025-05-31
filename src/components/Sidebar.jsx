@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+
 
 import AdmisionIcon             from '../assets/iconos-blanco-menu/admision.webp'
 import MatriculaIcon            from '../assets/iconos-blanco-menu/matricula.webp'
@@ -50,6 +52,8 @@ export default function Sidebar() {
     { key: 'grados-títulos', label: 'Grados y Títulos',       icon: TitulosIcon },
   ]
 
+  const navigate = useNavigate()
+
   return (
     <aside className="flex flex-col h-full bg-gris-poco-profundo text-white overflow-hidden">
       <div className="px-6 py-4 bg-gris-muy-profundo text-base font-semibold">
@@ -63,7 +67,12 @@ export default function Sidebar() {
               <div
                 onClick={() => {
                   if (item.children) setPostOpen(o => !o)
-                  else setActiveKey(item.key)
+                  else {
+                    setActiveKey(item.key)
+                    if (item.key === 'admisión') navigate('/admision')
+                      else if (item.key === 'diseño') navigate('/diseno-curricular')
+                  }
+                    
                 }}
                 className={
                   `flex items-center w-full px-6 py-3 border-l-4 transition-colors duration-150 cursor-pointer ` +
@@ -137,5 +146,3 @@ export default function Sidebar() {
     </aside>
   )
 }
-
-

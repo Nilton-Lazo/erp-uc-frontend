@@ -1,6 +1,7 @@
 // src/components/MainContent.jsx
 import React from 'react'
 import OptionButton from './OptionButton'
+import { Link } from 'react-router-dom'
 
 import AdmisionIcon      from '../assets/iconos-blanco-menu/admision.webp'
 import MatriculaIcon     from '../assets/iconos-blanco-menu/matricula.webp'
@@ -30,7 +31,9 @@ export default function MainContent() {
           <OptionButton icon={MatriculaIcon} label="Matrícula" bgClass="bg-morado-uc" textClass="text-gris-calmado" />
         </div>
         <div className="lg:row-start-2 lg:col-start-2">
-          <OptionButton icon={DisenoIcon} label="Diseño Curricular" bgClass="bg-morado-uc" textClass="text-gris-calmado" />
+          <Link to="/gestion-curricular">
+            <OptionButton icon={DisenoIcon} label="Diseño Curricular" bgClass="bg-morado-uc" textClass="text-gris-calmado" />
+          </Link>
         </div>
         <div className="lg:row-start-2 lg:col-start-3">
           <OptionButton icon={NivelacionIcon} label="Nivelación de Estudiantes" bgClass="bg-morado-uc" textClass="text-gris-calmado" />

@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 import AdmisionIcon             from '../assets/iconos-blanco-menu/admision.webp'
 import MatriculaIcon            from '../assets/iconos-blanco-menu/matricula.webp'
@@ -42,7 +43,7 @@ export default function Sidebar() {
         { key: 'tutoria',                    label: 'Tutoría',                    icon: TutoriaIcon },
         { key: 'proyeccion-social',          label: 'Proyección Social',          icon: ProySocialIcon },
         { key: 'extension-cultural',         label: 'Extensión Cultural',         icon: ExtCultIcon },
-        { key: 'practicas-preprofesionales', label: 'Prácticas Preprofesionales', icon: PraPreIcon },
+        { key: 'practicas-preprofesionales', icon: PraPreIcon,                   label: 'Prácticas Preprofesionales' },
       ]
     },
     { key: 'investigación',  label: 'Investigación',          icon: InvestigacionIcon },
@@ -60,33 +61,51 @@ export default function Sidebar() {
         <ul className="w-full">
           {items.map(item => (
             <li key={item.key} className="w-full">
-              <div
-                onClick={() => {
-                  if (item.children) setPostOpen(o => !o)
-                  else setActiveKey(item.key)
-                }}
-                className={
-                  `flex items-center w-full px-6 py-3 border-l-4 transition-colors duration-150 cursor-pointer ` +
-                  (activeKey === item.key
-                    ? 'bg-gray-700 border-white'
-                    : 'border-transparent') +
-                  ' hover:bg-gray-700 hover:border-white'
-                }
-              >
-                <img src={item.icon} alt="" className="h-5 w-5 mr-3" />
-                <span className="flex-1">{item.label}</span>
-
-                {item.children && (
-                  <img
-                    src={AtrasIcon}
-                    alt={postOpen ? 'Cerrar' : 'Abrir'}
+              {item.key === 'diseño' ? (
+                <Link to="/gestion-curricular">
+                  <div
+                    onClick={() => setActiveKey(item.key)}
                     className={
-                      `h-4 w-4 transform transition-transform duration-200 ` +
-                      (postOpen ? '-rotate-90' : 'rotate-0')
+                      `flex items-center w-full px-6 py-3 border-l-4 transition-colors duration-150 cursor-pointer ` +
+                      (activeKey === item.key
+                        ? 'bg-gray-700 border-white'
+                        : 'border-transparent') +
+                      ' hover:bg-gray-700 hover:border-white'
                     }
-                  />
-                )}
-              </div>
+                  >
+                    <img src={item.icon} alt="" className="h-5 w-5 mr-3" />
+                    <span className="flex-1">{item.label}</span>
+                  </div>
+                </Link>
+              ) : (
+                <div
+                  onClick={() => {
+                    if (item.children) setPostOpen(o => !o)
+                    else setActiveKey(item.key)
+                  }}
+                  className={
+                    `flex items-center w-full px-6 py-3 border-l-4 transition-colors duration-150 cursor-pointer ` +
+                    (activeKey === item.key
+                      ? 'bg-gray-700 border-white'
+                      : 'border-transparent') +
+                    ' hover:bg-gray-700 hover:border-white'
+                  }
+                >
+                  <img src={item.icon} alt="" className="h-5 w-5 mr-3" />
+                  <span className="flex-1">{item.label}</span>
+
+                  {item.children && (
+                    <img
+                      src={AtrasIcon}
+                      alt={postOpen ? 'Cerrar' : 'Abrir'}
+                      className={
+                        `h-4 w-4 transform transition-transform duration-200 ` +
+                        (postOpen ? '-rotate-90' : 'rotate-0')
+                      }
+                    />
+                  )}
+                </div>
+              )}
 
               {item.children && (
                 <div

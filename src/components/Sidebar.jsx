@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+
 
 import AdmisionIcon             from '../assets/iconos-blanco-menu/admision.webp'
 import MatriculaIcon            from '../assets/iconos-blanco-menu/matricula.webp'
@@ -48,7 +50,15 @@ export default function Sidebar() {
     { key: 'investigación',  label: 'Investigación',          icon: InvestigacionIcon },
     { key: 'egresados',      label: 'Gestión de Egresados',   icon: EgresadosIcon },
     { key: 'grados-títulos', label: 'Grados y Títulos',       icon: TitulosIcon },
+    {
+      key: 'control-docs', 
+      label: 'Control de Documentos', 
+      // icon: DocumentosIcon,   <-- usa tu ícono si lo tienes
+      icon: AyudaIcon,          // si no tienes ícono propio, reutiliza AyudaIcon o cualquier otro
+    }
   ]
+
+  const navigate = useNavigate()
 
   return (
     <aside className="flex flex-col h-full bg-gris-poco-profundo text-white overflow-hidden">
@@ -63,7 +73,24 @@ export default function Sidebar() {
               <div
                 onClick={() => {
                   if (item.children) setPostOpen(o => !o)
-                  else setActiveKey(item.key)
+                  else {
+                    setActiveKey(item.key)
+                    // Aquí redirigimos según el key
+                    if (item.key === 'admisión') {
+                      navigate('/admision')
+                    }
+                    else if (item.key === 'matrícula') {
+                      navigate('/matricula')
+                    }
+                    // … agrega más condiciones si tienes rutas para otros keys …
+                    
+                    // <<< NUEVO >>> 
+                    // Si el key es 'control-docs', vamos a /uc/documentos:
+                    else if (item.key === 'control-docs') {
+                      navigate('/sgc/documentos')
+                    }
+                  }
+                    
                 }}
                 className={
                   `flex items-center w-full px-6 py-3 border-l-4 transition-colors duration-150 cursor-pointer ` +
